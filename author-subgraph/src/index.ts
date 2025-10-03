@@ -20,18 +20,8 @@ const context: ContextFunction<
   DataSourceContext
 > = async ({ req }) => {
   const authToken = req.headers.authorization || "";
-  if (routerSecret && req.headers["router-authorization"] !== routerSecret) {
-    throw new GraphQLError("Missing router authentication", {
-      extensions: {
-        code: "UNAUTHENTICATED",
-        http: { status: 401 },
-      },
-    });
-  }
-
   return {
     authToken,
-    auth: req.headers.authorization,
     authorApi: authorApi,
   };
 };

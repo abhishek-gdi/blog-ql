@@ -8,26 +8,32 @@ export const Mutation: Resolvers = {
       data: { name: string },
       context: DataSourceContext
     ) {
-      return context.authorApi.createAuthor({
-        name: data.name,
-      });
+      return context.authorApi.createAuthor(
+        {
+          name: data.name,
+        },
+        context.authToken
+      );
     },
     async updateAuthor(
       _parent,
       data: { id: string; name: string },
       context: DataSourceContext
     ) {
-      return context.authorApi.updateAuthor({
-        id: data.id,
-        name: data.name,
-      });
+      return context.authorApi.updateAuthor(
+        {
+          id: data.id,
+          name: data.name,
+        },
+        context.authToken
+      );
     },
     async deleteAuthor(
       _parent,
       data: { id: string },
       context: DataSourceContext
     ) {
-      return context.authorApi.deleteAuthor({ id: data.id });
+      return context.authorApi.deleteAuthor({ id: data.id }, context.authToken);
     },
   },
 };

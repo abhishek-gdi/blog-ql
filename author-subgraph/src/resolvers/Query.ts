@@ -7,16 +7,16 @@ export const Query: Resolvers = {
     async getAuthor(
       _parent,
       { id },
-      context: DataSourceContext
+      ctx: DataSourceContext
     ): Promise<Author | null> {
-      return context.authorApi.getAuthorById(id);
+      return ctx.authorApi.getAuthorById(id, ctx.authToken);
     },
     async listAuthors(
       _: unknown,
       __: unknown,
-      context: DataSourceContext
+      ctx: DataSourceContext
     ): Promise<Author[]> {
-      return context.authorApi.listAuthors();
+      return ctx.authorApi.listAuthors(ctx.authToken);
     },
   },
 };

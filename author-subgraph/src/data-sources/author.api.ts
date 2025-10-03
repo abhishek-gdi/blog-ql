@@ -2,41 +2,54 @@ import { Author } from "../__generated__/resolvers-types";
 import { RestClient } from "../utils";
 
 export type IAuthorApi = {
-  getAuthorById: (id: string) => Promise<Author | null>;
-  listAuthors: () => Promise<Author[]>;
-  createAuthor: (data: { name: string }) => Promise<Author>;
-  updateAuthor: (data: Author) => Promise<Author | null>;
-  deleteAuthor: (data: { id: string }) => Promise<boolean>;
+  getAuthorById: (id: string, authToken: string) => Promise<Author | null>;
+  listAuthors: (authToken: string) => Promise<Author[]>;
+  createAuthor: (data: { name: string }, authToken: string) => Promise<Author>;
+  updateAuthor: (data: Author, authToken: string) => Promise<Author | null>;
+  deleteAuthor: (data: { id: string }, authToken: string) => Promise<boolean>;
 };
 
 export const authorApi: IAuthorApi = {
-  getAuthorById: async (id: string) => {
-    const result = await RestClient<Author>(`/author/${id}`);
+  getAuthorById: async (id: string, authToken: string) => {
+    const result = await RestClient<Author>({
+      endpoint: `/author/${id}`,
+      headers: { Authorization: authToken },
+    });
 
     return result;
   },
-  listAuthors: async () => {
-    const res = (await RestClient<Author[]>(`/author`, null, "GET")) || [];
+  listAuthors: async (authToken: string) => {
+    const res =
+      (await RestClient<Author[]>({
+        endpoint: `/author`,
+        headers: { Authorization: authToken },
+      })) || [];
     return res;
   },
-  createAuthor: async (data: { name: string }) => {
-    const author: Author = await RestClient<Author>(
-      `/author`,
-      { name: data.name },
-      "POST"
-    );
+  createAuthor: async (data: { name: string }, authToken: string) => {
+    const author: Author = await RestClient<Author>({
+      endpoint: `/author`,
+      method: "POST",
+      headers: { Authorization: authToken },
+      data: { name: data.name },
+    });
     return author;
   },
-  updateAuthor: async (data: Author) => {
-    const author = await RestClient<Author>(
-      "/auhor/" + data.id,
-      { name: data.name },
-      "PUT"
-    );
+  updateAuthor: async (data: Author, authToken: string) => {
+    const author = await RestClient<Author>({
+      endpoint: "/auhor/" + data.id,
+      headers: { Authorization: authToken },
+      data: { name: data.name },
+      method: "PUT",
+    });
     return author;
   },
-  deleteAuthor: async (data: { id: string }) => {
-    const author = await RestClient<Author>("/author/" + data.id, {}, "DELETE");
+  deleteAuthor: async (data: { id: string }, authToken: string) => {
+    const author = await RestClient<Author>({
+      endpoint: "/author/" + data.id,
+      method: "DELETE",
+      headers: { Authorization: authToken },
+    });
     return true;
   },
 };
