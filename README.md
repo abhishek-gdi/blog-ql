@@ -31,7 +31,7 @@ Visit [http://localhost:4000](http://localhost:4000) to access the Apollo Server
 ```mermaid
 flowchart TD
     Client[Client Browser]
-    Router[Router (Apollo Router)]
+    Router[Router _Apollo Router_]
     RestAPI[REST API Server]
     AuthorSG[Author Subgraph]
     ArticleSG[Article Subgraph]
@@ -39,7 +39,9 @@ flowchart TD
     Client -->|HTTP| Router
     Router -->|GraphQL| AuthorSG
     Router -->|GraphQL| ArticleSG
-    Router -->|REST| RestAPI
+    AuthorSG -->|Resolver| RestAPI
+    Router -->|Connector| RestAPI
+    ArticleSG -->|Resolver| RestAPI
 ```
 
 - **REST API Server**: Provides REST endpoints for data access.
