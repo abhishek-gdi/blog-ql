@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "build": "pnpm -r build",
+    "postinstall": "concurrently 'cd rest-api && pnpm i' 'cd author-subgraph && pnpm i' 'cd article-subgraph && pnpm i' 'cd router && pnpm i'",
     "dev": "concurrently -n 'services,router' 'pnpm dev:services' 'pnpm:delay-router'",
     "dev:services": "concurrently -n 'rest,author,article' 'pnpm dev:rest' 'pnpm dev:author' 'pnpm dev:article'",
     "delay-router": "wait-on tcp:4001 tcp:4002 tcp:3000 && pnpm dev:router",

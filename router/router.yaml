@@ -2,4 +2,4 @@ headers:
   all:
     request:
       - propagate:
-          named: "Authorization"
+          named: "Authorization"          
