@@ -57,3 +57,9 @@ if [ ! -f "$TARGET_REST_DIR/.env" ] && [ -f "$TARGET_REST_DIR/example.env" ]; th
     cp "$TARGET_REST_DIR/example.env" "$TARGET_REST_DIR/.env"
     echo "Copied example.env to .env inside the $TARGET_REST_DIR/ folder"
 fi
+
+TARGET_ROUTER_DIR="router"
+if [ ! -f "$TARGET_ROUTER_DIR/.env" ] && [ -f "$TARGET_ROUTER_DIR/example.env" ]; then
+    cp "$TARGET_ROUTER_DIR/example.env" "$TARGET_ROUTER_DIR/.env"
+    echo "Copied example.env to .env inside the $TARGET_ROUTER_DIR/ folder"
+fi

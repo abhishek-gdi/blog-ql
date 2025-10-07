@@ -18,7 +18,8 @@ pnpm dev
 1. `pnpm i`
 2. cd inside each folder and run `pnpm i`
 3. in `rest-api` copy the example.env to .env
-4. `pnpm dev`
+4. in router, copy example.env to .env & update Apollo Key
+5. `pnpm dev`
 
 ## Usage
 
