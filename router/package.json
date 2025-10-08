@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "./sh_stitch.sh && rover dev --supergraph-config supergraph.yaml --router-config router.yaml",
     "compose": "rover dev --supergraph-config ./supergraph.yaml",
-    "pub": "rover subgraph publish dev-blog-ql-test@current --schema 'meta.graphql' --name healthcheck --routing-url 'http://localhost:4000'",
+    "pub": "rover subgraph publish blog-ql-tffss@current --schema 'meta.graphql' --name healthcheck --routing-url 'http://localhost:4000'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
