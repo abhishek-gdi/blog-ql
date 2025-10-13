@@ -13,23 +13,14 @@ import { articleApi } from "./data-sources/article.api";
 
 const port = process.env.PORT ?? "4002";
 const subgraphName = require("../package.json").name;
-const routerSecret = process.env.ROUTER_SECRET;
 
 const context: ContextFunction<
   [StandaloneServerContextFunctionArgument],
   DataSourceContext
 > = async ({ req }) => {
-  if (routerSecret && req.headers["router-authorization"] !== routerSecret) {
-    throw new GraphQLError("Missing router authentication", {
-      extensions: {
-        code: "UNAUTHENTICATED",
-        http: { status: 401 },
-      },
-    });
-  }
-
+  const authToken = req.headers.authorization || "";
   return {
-    auth: req.headers.authorization,
+    authToken,
     articleApi: articleApi,
   };
 };

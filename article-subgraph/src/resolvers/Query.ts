@@ -8,14 +8,14 @@ export const Query: Resolvers = {
       { id },
       context: DataSourceContext
     ): Promise<Article | null> {
-      return context.articleApi.getArticleById(id);
+      return context.articleApi.getArticleById(id, context.authToken);
     },
     async listArticles(
       _: unknown,
       __: unknown,
       context: DataSourceContext
     ): Promise<Article[]> {
-      return context.articleApi.listArticles();
+      return context.articleApi.listArticles(context.authToken);
     },
   },
 };

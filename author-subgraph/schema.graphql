@@ -23,7 +23,7 @@ extend schema
     ]
   )
 
-type Author @key(fields: "id") @shareable @extends {
+type Author @key(fields: "id") {
   id: ID!
   name: String
 }
