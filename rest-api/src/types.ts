@@ -25,3 +25,10 @@ export interface IArticle {
 export interface IArticleWithAuthor extends IArticle {
     author?: IAuthor
 }
+
+export interface IComment {
+    id: string
+    articleId: string
+    authorId: string
+    content: string
+}
