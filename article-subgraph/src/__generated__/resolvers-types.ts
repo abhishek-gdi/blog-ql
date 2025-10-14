@@ -24,12 +24,15 @@ export type Article = {
   authorId?: Maybe<Scalars['ID']['output']>;
   content?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
+  summary?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
 };
 
 export type Author = {
   __typename?: 'Author';
   id: Scalars['ID']['output'];
+  latestArticle?: Maybe<Article>;
+  listArticles: Array<Article>;
 };
 
 export type Mutation = {
@@ -186,6 +189,7 @@ export type ArticleResolvers<ContextType = DataSourceContext, ParentType extends
   authorId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -193,6 +197,8 @@ export type ArticleResolvers<ContextType = DataSourceContext, ParentType extends
 export type AuthorResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Author'] = ResolversParentTypes['Author']> = ResolversObject<{
   __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Author']>, { __typename: 'Author' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
 
+  latestArticle?: Resolver<Maybe<ResolversTypes['Article']>, { __typename: 'Author' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+  listArticles?: Resolver<Array<ResolversTypes['Article']>, { __typename: 'Author' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 

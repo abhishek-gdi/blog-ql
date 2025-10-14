@@ -4,11 +4,11 @@ import { v4 as uuidv4 } from 'uuid'
 export const data: IAuthor[] = [
     {
         id: '5e6c29c8-95e7-4eaf-a0c7-24865267fdd5',
-        name: 'Shaktimaan',
+        name: 'Alex Johnson',
     },
     {
         id: 'dd9e7678-4c44-4c2a-be7f-2048509e70bd',
-        name: 'Dr Doom',
+        name: 'Samantha Chen',
     },
 ]
 

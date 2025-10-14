@@ -23,8 +23,10 @@ extend schema
     ]
   )
 
-type Author @key(fields: "id") @extends {
+extend type Author @key(fields: "id") @extends {
   id: ID! @external
+  listArticles: [Article!]!
+  latestArticle: Article
 }
 
 type Article @key(fields: "id") @extends {
@@ -33,6 +35,7 @@ type Article @key(fields: "id") @extends {
   content: String
   authorId: ID
   author: Author
+  summary: String
 }
 
 type Query {

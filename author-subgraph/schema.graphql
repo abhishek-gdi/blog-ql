@@ -25,7 +25,7 @@ extend schema
 
 type Author @key(fields: "id") @shareable {
   id: ID!
-  name: String
+  name: String @shareable
 }
 
 type Query {
