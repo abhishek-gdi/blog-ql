@@ -13,3 +13,8 @@ subgraphs:
     routing_url: ${GQ_ROUTE_ARTICLE}
     schema:
       subgraph_url: ${GQ_ROUTE_ARTICLE}
+  comments:
+    routing_url: ${GQ_ROUTE_COMMENTS}
+    schema:
+      subgraph_url: ${GQ_ROUTE_COMMENTS}
+
