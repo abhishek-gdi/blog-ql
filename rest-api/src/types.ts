@@ -31,4 +31,5 @@ export interface IComment {
     articleId: string
     authorId: string
     content: string
+    authorName: string
 }

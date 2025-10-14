@@ -10,11 +10,9 @@ export const Comments: Resolvers = {
       return {
         __typename: "Author",
         id: parent.authorId,
+        name: parent.authorName,
         comments: [],
       };
-    },
-    article: (parent) => {
-      return { __typename: "Article", id: parent.articleId, comments: [] };
     },
   },
   Article: {

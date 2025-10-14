@@ -28,6 +28,7 @@ export type Author = {
   __typename?: 'Author';
   comments: Array<Comments>;
   id: Scalars['ID']['output'];
+  name?: Maybe<Scalars['String']['output']>;
 };
 
 export type Comments = {
@@ -36,6 +37,7 @@ export type Comments = {
   articleId: Scalars['ID']['output'];
   author?: Maybe<Author>;
   authorId: Scalars['ID']['output'];
+  authorName?: Maybe<Scalars['String']['output']>;
   content?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
 };
@@ -142,8 +144,8 @@ export type ResolversTypes = ResolversObject<{
   Article: ResolverTypeWrapper<Article>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Author: ResolverTypeWrapper<Author>;
-  Comments: ResolverTypeWrapper<Comments>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
+  Comments: ResolverTypeWrapper<Comments>;
   Query: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
 }>;
@@ -153,8 +155,8 @@ export type ResolversParentTypes = ResolversObject<{
   Article: Article;
   ID: Scalars['ID']['output'];
   Author: Author;
-  Comments: Comments;
   String: Scalars['String']['output'];
+  Comments: Comments;
   Query: {};
   Boolean: Scalars['Boolean']['output'];
 }>;
@@ -178,6 +180,7 @@ export type AuthorResolvers<ContextType = DataSourceContext, ParentType extends 
   __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Author']>, { __typename: 'Author' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   comments?: Resolver<Array<ResolversTypes['Comments']>, { __typename: 'Author' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
 
+  name?: Resolver<Maybe<ResolversTypes['String']>, { __typename: 'Author' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -187,6 +190,7 @@ export type CommentsResolvers<ContextType = DataSourceContext, ParentType extend
   articleId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   author?: Resolver<Maybe<ResolversTypes['Author']>, ParentType, ContextType>;
   authorId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  authorName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

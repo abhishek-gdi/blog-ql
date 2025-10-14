@@ -26,7 +26,7 @@ extend schema
 extend type Author @key(fields: "id") @extends {
   id: ID! @external
   comments: [Comments!]!
-  # name: String! @shareable @external
+  name: String @shareable @external
 }
 
 extend type Article @key(fields: "id") @extends {
@@ -39,8 +39,9 @@ type Comments @key(fields: "id") @extends {
   authorId: ID!
   articleId: ID!
   content: String
-  author: Author
+  author: Author @provides(fields: "name") @tag(name: "internal")
   article: Article
+  authorName: String @inaccessible
 }
 
 type Query {
