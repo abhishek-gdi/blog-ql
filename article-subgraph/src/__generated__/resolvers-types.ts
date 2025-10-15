@@ -28,6 +28,18 @@ export type Article = {
   title?: Maybe<Scalars['String']['output']>;
 };
 
+export type ArticleConnection = {
+  __typename?: 'ArticleConnection';
+  edges: Array<ArticleEdge>;
+  pageInfo: PageInfo;
+};
+
+export type ArticleEdge = {
+  __typename?: 'ArticleEdge';
+  cursor: Scalars['String']['output'];
+  node: Article;
+};
+
 export type Author = {
   __typename?: 'Author';
   id: Scalars['ID']['output'];
@@ -61,10 +73,23 @@ export type MutationUpdateArticleArgs = {
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type PageInfo = {
+  __typename?: 'PageInfo';
+  endCursor?: Maybe<Scalars['String']['output']>;
+  hasNextPage: Scalars['Boolean']['output'];
+};
+
 export type Query = {
   __typename?: 'Query';
+  articles: ArticleConnection;
   getArticle?: Maybe<Article>;
   listArticles: Array<Article>;
+};
+
+
+export type QueryArticlesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -158,10 +183,14 @@ export type ResolversTypes = ResolversObject<{
   Article: ResolverTypeWrapper<Article>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
+  ArticleConnection: ResolverTypeWrapper<ArticleConnection>;
+  ArticleEdge: ResolverTypeWrapper<ArticleEdge>;
   Author: ResolverTypeWrapper<Author>;
   Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  PageInfo: ResolverTypeWrapper<PageInfo>;
   Query: ResolverTypeWrapper<{}>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -169,10 +198,14 @@ export type ResolversParentTypes = ResolversObject<{
   Article: Article;
   ID: Scalars['ID']['output'];
   String: Scalars['String']['output'];
+  ArticleConnection: ArticleConnection;
+  ArticleEdge: ArticleEdge;
   Author: Author;
   Mutation: {};
   Boolean: Scalars['Boolean']['output'];
+  PageInfo: PageInfo;
   Query: {};
+  Int: Scalars['Int']['output'];
 }>;
 
 export type ContactDirectiveArgs = {
@@ -194,6 +227,18 @@ export type ArticleResolvers<ContextType = DataSourceContext, ParentType extends
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type ArticleConnectionResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['ArticleConnection'] = ResolversParentTypes['ArticleConnection']> = ResolversObject<{
+  edges?: Resolver<Array<ResolversTypes['ArticleEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ArticleEdgeResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['ArticleEdge'] = ResolversParentTypes['ArticleEdge']> = ResolversObject<{
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['Article'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type AuthorResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Author'] = ResolversParentTypes['Author']> = ResolversObject<{
   __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Author']>, { __typename: 'Author' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
 
@@ -208,15 +253,25 @@ export type MutationResolvers<ContextType = DataSourceContext, ParentType extend
   updateArticle?: Resolver<ResolversTypes['Article'], ParentType, ContextType, RequireFields<MutationUpdateArticleArgs, 'id'>>;
 }>;
 
+export type PageInfoResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = ResolversObject<{
+  endCursor?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  hasNextPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type QueryResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  articles?: Resolver<ResolversTypes['ArticleConnection'], ParentType, ContextType, RequireFields<QueryArticlesArgs, 'first'>>;
   getArticle?: Resolver<Maybe<ResolversTypes['Article']>, ParentType, ContextType, RequireFields<QueryGetArticleArgs, 'id'>>;
   listArticles?: Resolver<Array<ResolversTypes['Article']>, ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = DataSourceContext> = ResolversObject<{
   Article?: ArticleResolvers<ContextType>;
+  ArticleConnection?: ArticleConnectionResolvers<ContextType>;
+  ArticleEdge?: ArticleEdgeResolvers<ContextType>;
   Author?: AuthorResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  PageInfo?: PageInfoResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 }>;
 

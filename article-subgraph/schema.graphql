@@ -41,10 +41,26 @@ type Article @key(fields: "id") @extends {
 type Query {
   getArticle(id: ID!): Article
   listArticles: [Article!]!
+  articles(first: Int = 10, after: String): ArticleConnection!
 }
 
 type Mutation {
   createArticle(title: String!, content: String, authorId: String!): Article!
   updateArticle(id: ID!, title: String, content: String): Article!
   deleteArticle(id: ID!): Boolean!
+}
+
+type ArticleConnection {
+  edges: [ArticleEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ArticleEdge {
+  cursor: String!
+  node: Article!
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
 }
