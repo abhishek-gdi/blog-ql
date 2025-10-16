@@ -9,6 +9,9 @@ import {
 import resolvers from "./resolvers";
 import { DataSourceContext } from "./types/DataSourceContext";
 import { GraphQLError } from "graphql";
+import responseCachePlugin from "@apollo/server-plugin-response-cache";
+import { initRedisCache } from "./redis";
+
 import { commentsApi } from "./data-sources/comments.api";
 
 const port = process.env.PORT ?? "4003";
@@ -26,6 +29,7 @@ const context: ContextFunction<
 };
 
 async function main() {
+  const redis = initRedisCache();
   let typeDefs = gql(
     readFileSync("schema.graphql", {
       encoding: "utf-8",
@@ -33,6 +37,8 @@ async function main() {
   );
   const server = new ApolloServer({
     schema: buildSubgraphSchema({ typeDefs, resolvers }),
+    cache: redis,
+    plugins: [responseCachePlugin()],
   });
   const { url } = await startStandaloneServer(server, {
     context,

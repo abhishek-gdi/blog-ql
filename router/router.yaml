@@ -2,4 +2,30 @@ headers:
   all:
     request:
       - propagate:
-          named: "Authorization"          
+          named: "Authorization"
+# # Query Planning Cache with Redis
+# supergraph:
+#   query_planning:
+#     cache:
+#       redis:
+#         urls: ["redis://127.0.0.1:6379"]
+## Entity Cache with Redis
+# preview_entity_cache:
+#   enabled: true
+#   expose_keys_in_context: true # Optional, it will expose cache keys in the context in order to use it in coprocessors or Rhai
+#   subgraph:
+#     all:
+#       enabled: true
+#       # Configure Redis
+#       redis:
+#         urls: ["redis://127.0.0.1:6379"]
+#         timeout: 2s
+#         ttl: 24h
+#     subgraphs:
+#       comments:
+#         ttl: 120s # overrides the global TTL
+#       article:
+#         enabled: true # disable for a specific subgraph
+#       author:
+#         # private_id: "user_id"
+#         enabled: true

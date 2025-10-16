@@ -23,6 +23,17 @@ extend schema
     ]
   )
 
+enum CacheControlScope {
+  PUBLIC
+  PRIVATE
+}
+
+directive @cacheControl(
+  maxAge: Int
+  scope: CacheControlScope
+  inheritMaxAge: Boolean
+) on FIELD_DEFINITION | OBJECT | INTERFACE | UNION
+
 extend type Author @key(fields: "id") @extends {
   id: ID! @external
   comments: [Comments!]!
@@ -34,7 +45,7 @@ extend type Article @key(fields: "id") @extends {
   comments: [Comments!]!
 }
 
-type Comments @key(fields: "id") @extends {
+type Comments @key(fields: "id") @extends @cacheControl(maxAge: 60) {
   id: ID!
   authorId: ID!
   articleId: ID!
@@ -45,6 +56,6 @@ type Comments @key(fields: "id") @extends {
 }
 
 type Query {
-  getCommentsOnArticle(articleId: ID!): [Comments!]!
+  getCommentsOnArticle(articleId: ID!): [Comments!]! @cacheControl(maxAge: 60)
   getCommentsByAuthor(authorId: ID!): [Comments!]!
 }

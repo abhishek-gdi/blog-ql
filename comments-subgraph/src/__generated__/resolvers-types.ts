@@ -31,6 +31,11 @@ export type Author = {
   name?: Maybe<Scalars['String']['output']>;
 };
 
+export enum CacheControlScope {
+  Private = 'PRIVATE',
+  Public = 'PUBLIC'
+}
+
 export type Comments = {
   __typename?: 'Comments';
   article?: Maybe<Article>;
@@ -145,9 +150,11 @@ export type ResolversTypes = ResolversObject<{
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Author: ResolverTypeWrapper<Author>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
+  CacheControlScope: CacheControlScope;
   Comments: ResolverTypeWrapper<Comments>;
   Query: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -159,7 +166,16 @@ export type ResolversParentTypes = ResolversObject<{
   Comments: Comments;
   Query: {};
   Boolean: Scalars['Boolean']['output'];
+  Int: Scalars['Int']['output'];
 }>;
+
+export type CacheControlDirectiveArgs = {
+  inheritMaxAge?: Maybe<Scalars['Boolean']['input']>;
+  maxAge?: Maybe<Scalars['Int']['input']>;
+  scope?: Maybe<CacheControlScope>;
+};
+
+export type CacheControlDirectiveResolver<Result, Parent, ContextType = DataSourceContext, Args = CacheControlDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type ContactDirectiveArgs = {
   description?: Maybe<Scalars['String']['input']>;
@@ -209,5 +225,6 @@ export type Resolvers<ContextType = DataSourceContext> = ResolversObject<{
 }>;
 
 export type DirectiveResolvers<ContextType = DataSourceContext> = ResolversObject<{
+  cacheControl?: CacheControlDirectiveResolver<any, any, ContextType>;
   contact?: ContactDirectiveResolver<any, any, ContextType>;
 }>;
